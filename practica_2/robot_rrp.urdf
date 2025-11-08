@@ -1,0 +1,178 @@
+<robot name="robot_rrp">
+
+	<!-- * * * Link Definitions * * * -->
+
+ 	<link name="base_link">
+		<visual>
+		    <origin xyz="0 0 0.075" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.3" length="0.15"/>
+			</geometry>
+			<material name="Black">
+	       		<color rgba="0 0 0 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+
+ 	<link name="column_link">
+		<visual>
+		    <origin xyz="0 0 0.2" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.4"/>
+			</geometry>
+			<material name="Cyan">
+	       		<color rgba="0 0.9 0.9 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+	
+	<link name="column_arm_circ1_link">
+		<visual>
+		    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.1"/>
+			</geometry>
+			<material name="Cyan">
+	       		<color rgba="0 0.9 0.9 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+	<link name="column_arm_link">
+		<visual>
+		    <origin xyz="0.225 0 0.05" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.45 0.2 0.1"/>
+			</geometry>
+			<material name="Cyan">
+	       		<color rgba="0 0.9 0.9 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+	<link name="column_arm_circ2_link">
+		<visual>
+		    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.1"/>
+			</geometry>
+			<material name="Cyan">
+	       		<color rgba="0 0.9 0.9 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+
+	<link name="second_arm_circ1_link">
+		<visual>
+		    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.1"/>
+			</geometry>
+			<material name="Purple">
+	       		<color rgba="0.5 0 1.0 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+	<link name="second_arm_link">
+		<visual>
+		    <origin xyz="0.225 0 0.05" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.45 0.2 0.1"/>
+			</geometry>
+			<material name="Purple">
+	       		<color rgba="0.5 0 1.0 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+	<link name="second_arm_circ2_link">
+		<visual>
+		    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.1"/>
+			</geometry>
+			<material name="Purple">
+	       		<color rgba="0.5 0 1.0 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+
+	<link name="column_final_effector_link">
+		<visual>
+		    <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.075" length="0.2"/>
+			</geometry>
+			<material name="Purple">
+	       		<color rgba="0.5 0 1.0 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+	<link name="final_effector_link">
+		<visual>
+		    <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.05" length="0.3"/>
+			</geometry>
+			<material name="White">
+	       		<color rgba="1.0 1.0 1.0 1.0"/>
+	     	</material>
+		</visual>	
+	</link>
+
+	
+	<!-- * * * Joint Definitions * * * -->
+	
+	<joint name="column_base_joint" type="revolute">
+    	<parent link="base_link"/>
+    	<child link="column_link"/>
+    	<origin xyz="0 0 0.15" rpy="0 0 0"/>
+    	<axis xyz="0 0 1"/>
+    	<limit lower="-3.1416" upper="3.1416" effort="10" velocity="3"/>
+  	</joint>
+ 
+	<joint name="column_arm_circ1_joint" type="fixed">
+    	<parent link="column_link"/>
+    	<child link="column_arm_circ1_link"/>
+    	<origin xyz="0 0 0.4" rpy="0 0 0"/>
+	</joint>
+	<joint name="column_arm_joint" type="fixed">
+    	<parent link="column_arm_circ1_link"/>
+    	<child link="column_arm_link"/>
+    	<origin xyz="0.0 0 0" rpy="0 0 0"/>
+	</joint>
+	<joint name="column_arm_circ2_joint" type="fixed">
+    	<parent link="column_arm_link"/>
+    	<child link="column_arm_circ2_link"/>
+    	<origin xyz="0.45 0 0" rpy="0 0 0"/>
+	</joint>
+
+	<joint name="second_and_column_arm_circ1_joint" type="revolute">
+    	<parent link="column_arm_circ2_link"/>
+    	<child link="second_arm_circ1_link"/>
+    	<origin xyz="0 0 0.1" rpy="0 0 0"/>
+    	<axis xyz="0 0 1"/>
+    	<limit lower="-2.67" upper="2.67" effort="10" velocity="3"/>
+	</joint>
+	<joint name="second_arm_joint" type="fixed">
+    	<parent link="second_arm_circ1_link"/>
+    	<child link="second_arm_link"/>
+    	<origin xyz="0.0 0 0" rpy="0 0 0"/>
+	</joint>
+	<joint name="second_arm_circ2_joint" type="fixed">
+    	<parent link="second_arm_link"/>
+    	<child link="second_arm_circ2_link"/>
+    	<origin xyz="0.45 0 0" rpy="0 0 0"/>
+	</joint>
+
+	<joint name="secondArm_colFinalEffector_joint" type="fixed">
+    	<parent link="second_arm_circ2_link"/>
+    	<child link="column_final_effector_link"/>
+    	<origin xyz="0 0 0" rpy="0 0 0"/>
+	</joint>
+	<joint name="column_final_effector_joint" type="prismatic">
+    	<parent link="column_final_effector_link"/>
+    	<child link="final_effector_link"/>
+    	<origin xyz="0.0 0 0" rpy="0 0 0"/>
+    	<axis xyz="0 0 1"/>
+    	<limit lower="0" upper="-0.15" effort="10" velocity="3"/>
+	</joint>
+
+</robot>
